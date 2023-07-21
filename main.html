@@ -2,8 +2,32 @@
 <html>
     <head>
         <title>Weather Wardrobe</title>
+        <style>
+            body {
+                text-align: center;
+                background-color: black;
+                color: white;
+            }
+           
+            label {
+                text-align: left;
+                display:inline-block;
+                width: 100px;
+            }
+        </style>
     </head>
     <body>
+        <h1>Weather Wardrobe</h1>
 
+        <form >
+            <label id="location">User Location: </label><input type="text" id="location" name="location">
+            <br><br>
+            <label id="formality">Formality: </label><input type="text" id="formality" name="formality">
+            <br><br>
+            <button type="submit">Make outfits</button>
+        </form>
+
+        <div><!--To display the weather--></div>
+        <div><!--To display the outfits--></div>
     </body>
 </html>
