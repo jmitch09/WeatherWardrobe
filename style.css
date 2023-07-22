@@ -1,0 +1,64 @@
+*{box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    text-align: center;
+    background-color: black;
+    color: white;
+}
+
+label {
+    text-align: left;
+    display:inline-block;
+    width: 100px;
+}
+
+.weather-icon{
+    width: 5rem;
+}
+
+.day{
+    display: flex;
+    flex-direction: row;
+    padding: .6rem;
+    justify-content: center;
+}
+
+.weather-tile{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1rem;
+    margin: 1rem;
+    border: 3px solid rgb(196, 110, 25);
+    background-color: rgb(232, 186, 141);
+    border-radius: .5rem;
+    width:10rem
+}
+
+.date{
+    font-family: "Roboto", "Arial", sans-serif;
+    margin-top: 10px;
+}
+
+.day-of-week{
+font-family: "Roboto", "Arial", sans-serif;
+font-weight: 700;
+margin-top: 6px;
+font-size: 24px;
+/* font-size: .75rem; */
+}
+
+.high-temp{
+    font-size: 18px;
+    font-weight: 800;
+    margin-top: 6px;
+    margin-bottom: 3px;
+}
+
+.low-temp{
+    font-weight: 500;
+}
+
