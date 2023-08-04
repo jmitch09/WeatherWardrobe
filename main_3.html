@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Weather API Test</title>
-    <link rel="stylesheet" href="styles-3.css">
+    <link rel="stylesheet" href="weather_api_styles.css">
     <script   src="https://code.jquery.com/jquery-3.1.1.min.js"
 	integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
 	crossorigin="anonymous"></script>
@@ -23,7 +23,7 @@
                     <option value="non-binary">Non-Binary</option>
                   </select>
             </div>
-            <div class = "label_div"><label id="location">Zip Code: </label><input type="text" id="location" name="location"></div>
+            <div class = "label_div"><label id="location">Zip Code: </label><input type="text" id="location" name="location" placeholder="Ex. 02144"></div>
             <div class = "label_div">
                 <label id="formality">Formality: </label>
                 <select name="formality" id="formality">
@@ -92,9 +92,9 @@
             <img src="images/jacket-white.svg" alt="tops layer placeholder">
         </div>
         <div class = "prod_images">
-            <img class = "rec1">
-            <img class = "rec2">
-            <img class = "rec3">
+            <img class = "rec1" src='https://bonobos-prod-s3.imgix.net/products/294954/original/COAT_CAR-COAT_BOT11100NG2488_1.jpg?1687056414=&auto=compress%2Cformat&fit=clip&cs=srgb&w=768&fm=pjpg&q=50'>
+            <img class = "rec2" src="https://bonobos-prod-s3.imgix.net/products/288465/original/SWEATER_V-NECK-SWEATER_BST00744NR2831_1.jpg?1687056414=&auto=compress%2Cformat&fit=clip&cs=srgb&w=768&fm=pjpg&q=50">
+            <img class = "rec3" src = "https://jiffyshirts1.imgix.net/2ec61f509401ff.jpg?ixlib=rb-0.3.4&auto=format&fit=fill&fill=solid&trim-color=FFFFFF&trim=color&trim-tol=8&w=307&h=480&q=80&dpr=2">
         </div>
     </section><hr>
     <section class = "recs" id="tops-base">
@@ -104,7 +104,7 @@
         </div>
         <div class = "prod_images">
             <img class = "rec1">
-            <img class = "rec2">
+            <img class = "rec2"> 
             <img class = "rec3">
         </div>
     </section><hr>
