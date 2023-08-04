@@ -104,7 +104,22 @@ hr {
 }
 
 .recs {
-    height:200px
+    height:200px;
+    display:flex;
+    align-items: center;
+}
+
+.prod_images img{
+    height: 190px;
+    /* margin: auto; */
+}
+
+.prod_images{
+    text-align: center;
+    margin-left: 200px;
+    display: flex;
+    justify-content: space-around;
+    width: 60%;
 }
 
 .section-header img{
