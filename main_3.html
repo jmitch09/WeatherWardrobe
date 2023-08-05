@@ -139,8 +139,7 @@
     <script>
     $(document).ready(function(){
 
-        var zip_code = "02144";
-
+        let zip_code = "02144";
         parseWeather(zip_code);
 
         async function getLatLong(zip_code) {
@@ -175,13 +174,14 @@
             return json;
         };
 
-        async function parseWeather(zip_code) {
-            let coordinates = await getLatLong(zip_code);
-            let lat = coordinates.results[0].geometry.location.lat;
-            let lon = coordinates.results[0].geometry.location.lng;
+        async function getWeatherForZipCode(zip_code) {
+            const coordinates = await getLatLong(zip_code);
+            const lat = coordinates.results[0].geometry.location.lat;
+            const lon = coordinates.results[0].geometry.location.lng;
+            return getWeather(lat, lon);
+        }
 
-            let temps = await getWeather(lat, lon);
-
+        function displayWeather(temps) {
             day1 = createTile(temps, 0);
             day2 = createTile(temps, 1);
             day3 = createTile(temps, 2);
@@ -195,9 +195,12 @@
             pushTile(day3, "day-3");
             pushTile(day4, "day-4");
             pushTile(day5, "day-5");
-
-            return temps;
         };
+
+        async function parseWeather(zip_code) {
+            const temps = await getWeatherForZipCode(zip_code);
+            displayWeather(temps);
+        }
 
         function createTile(temps, index) {
             day_tile = {
@@ -299,6 +302,15 @@
             99: "rainy"
         }
 
+        function getWeatherForDay(temps, day) {
+            const weather_code = temps.daily.weathercode[day];
+            const weather = weather_codes[weather_code];
+            const temp_hi = temps.daily.temperature_2m_max[day];
+            const temp_lo = temps.daily.temperature_2m_min[day];
+            const temp = Math.round((temp_lo + temp_hi) / 2.0);
+            return { "weather": weather, "temp": temp };
+        }
+
         $('form').submit(async function(event) {
             event.preventDefault();
 
@@ -310,19 +322,14 @@
 
             // Update weather based on provided zip code
             zip_code = values['location'];
-            const temps = await parseWeather(zip_code);
+            const temps = await getWeatherForZipCode(zip_code);
+            displayWeather(temps);
 
             // Get an outfit for each day
             for (let i = 1; i <= 5; i++) {
-                const weather_code = temps.daily.weathercode[i];
-                const weather = weather_codes[weather_code];
-                const temp_hi = temps.daily.temperature_2m_max[i];
-                const temp_lo = temps.daily.temperature_2m_min[i];
-                const temp = Math.round((temp_lo + temp_hi) / 2.0);
-                values["weather"] = weather;
-                values["temp"] = temp;
+                values = $.extend(values, getWeatherForDay(temps, i));
                 $.post('/submit', values, function(response) {
-                    console.log("Day: " + parseInt(i));
+                    console.log("Day: " + i);
                     console.log(response["headwear"].item);
                     console.log(response["tops base"].item);
                     console.log(response["tops layer"].item);
@@ -330,6 +337,26 @@
                     console.log(response["footwear"].item);
                 }, 'json');
             }
+        });
+
+        $(".weather-tile").on("click", async function() {
+            var values = {};
+            $.each($('form').serializeArray(), function(i, field) {
+                values[field.name] = field.value;
+            });
+
+            const temps = await getWeatherForZipCode(zip_code);
+            const day = $(this).attr("id").substring(4);
+            values = $.extend(values, getWeatherForDay(temps, day));
+
+            $.post('/submit', values, function(response) {
+                console.log("Day: " + day + " (Outfit Change)");
+                console.log(response["headwear"].item);
+                console.log(response["tops base"].item);
+                console.log(response["tops layer"].item);
+                console.log(response["bottoms"].item);
+                console.log(response["footwear"].item);
+            }, 'json');
         });
     });
     </script>
