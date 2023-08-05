@@ -1,15 +1,6 @@
-
 const { MongoClient, ServerApiVersion } = require('mongodb');
 const uri = "mongodb+srv://weatherwardrobe:cs120-2023!@weatherwardrobedb.g4hwav7.mongodb.net/?retryWrites=true";
 
-// Create a MongoClient with a MongoClientOptions object to set the Stable API version
-const client = new MongoClient(uri, {
-  serverApi: {
-    version: ServerApiVersion.v1,
-    strict: true,
-    deprecationErrors: true,
-  }
-});
 
 function queryClothingType(collection, type, occasion, weather, temp, gender) {
     /* This functions queries the passed collection for a piece of clothing of
@@ -29,9 +20,14 @@ function queryClothingType(collection, type, occasion, weather, temp, gender) {
 
 function randomChoice(array) {
     /* This function takes an array and returns a random element from within it.
-     * If the array is empty, a null value is returned.
+     * If the array is empty, an empty object is returned.
      */
-    return array[Math.floor(Math.random() * array.length)];
+    const choice = array[Math.floor(Math.random() * array.length)];
+    if (!choice) {
+        return {};
+    } else {
+        return choice;
+    }
 }
 
 async function queryOutfit(collection, occasion, weather, temp, gender) {
@@ -69,27 +65,37 @@ async function queryOutfit(collection, occasion, weather, temp, gender) {
     };
 }
 
-async function run() {
-  try {
-    // Connect the client to the server	(optional starting in v4.7)
-    await client.connect();
+module.exports = {
+    getOutfit: async function (occasion, weather, temp, gender, callback) {
+        /* Connect to the database and pass the outfit chosen for the given
+         * conditions to the callback function.
+         */
+        // Create a MongoClient with a MongoClientOptions object to set the
+        // Stable API version
+        const client = new MongoClient(uri, {
+            serverApi: {
+                version: ServerApiVersion.v1,
+                strict: true,
+                deprecationErrors: true,
+            }
+        });
+        try {
+            // Connect the client to the server	(optional starting in v4.7)
+            await client.connect();
 
-    // Get specific database and collections
-    const database = client.db('weatherwardrobe_db');
-    const collection = database.collection('outfits');
+            // Get specific database and collections
+            const database = client.db('weatherwardrobe_db');
+            const collection = database.collection('outfits');
 
-    // Query an outfit and log it to the console
-    console.log(await queryOutfit(collection, 'casual', 'sunny', 75, 'female'));
+            // Query an outfit and log it to the console
+            let outfit = await queryOutfit(collection, 'casual', 'sunny', 75, 'female');
 
-    // On the client-side:
-    //   For each clothing type:
-    //     If clothing type exists:
-    //       Display name and image
+            callback(outfit);
 
-  } finally {
-      // Ensures that the client will close when you finish/error
-      await client.close();
-  }
-}
+        } finally {
+            // Ensures that the client will close when you finish/error
+            await client.close();
+        }
+    }
+};
 
-run().catch(console.dir);
