@@ -17,9 +17,8 @@ app.post('/submit', (req, res) => {
     gender = req.body.gender;
     zip_code = req.body.location;
     formality = req.body.formality;
-
-    weather = 'sunny'
-    temp = 75
+    weather = req.body.weather;
+    temp = parseInt(req.body.temp);
 
     mongo_query.getOutfit(formality, weather, temp, gender, function(outfit) {
         res.json(outfit);
