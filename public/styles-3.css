@@ -1,0 +1,139 @@
+*{box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    text-align: center;
+    font-family: "Roboto", "Arial", sans-serif;
+    background-color: rgb(39, 37, 37);
+    color: white;
+}
+
+#title{
+    margin: 30px 0px;
+    font-size: 50px;
+}
+
+.label_div {
+    margin: 0px 20px;
+    font-size: 20px;
+}
+
+.label_div select, .label_div input{
+    width: 100px
+}
+
+
+.ind_input {
+    display: flex;
+    justify-content: center;
+    font-weight: 800;
+}
+
+#submit {
+    margin-top: 10px;
+    padding: 10px;
+    font-weight: 800;
+    border-radius: 8px;
+    font-size: 20px;
+}
+
+#submit:hover{
+    background-color: rgb(196, 110, 25);
+}
+
+.weather-tile:hover{
+    background-color: rgb(196, 110, 25);
+}
+
+.weather-icon{
+    width: 5rem;
+    /* width:10px;
+    height:10px; */
+}
+
+
+.days{
+    display: flex;
+    flex-direction: row;
+    padding: .6rem;
+    justify-content: center;
+    color: black;
+}
+
+
+
+.weather-tile{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1rem;
+    margin: 1rem;
+    border: 3px solid rgb(196, 110, 25);
+    background-color: rgb(232, 186, 141);
+    border-radius: .5rem;
+    width:10rem
+}
+
+.date{
+    font-family: "Roboto", "Arial", sans-serif;
+    margin-top: 10px;
+}
+.weather-tile  img {
+    height: 100px
+}
+
+.day-of-week{
+font-family: "Roboto", "Arial", sans-serif;
+font-weight: 700;
+margin-top: 6px;
+font-size: 24px;
+/* font-size: .75rem; */
+}
+
+.high-temp{
+    font-size: 18px;
+    font-weight: 800;
+    margin-top: 6px;
+    margin-bottom: 3px;
+}
+
+.low-temp{
+    font-weight: 500;
+}
+
+hr {
+    margin: 20px 0px;
+}
+
+.recs {
+    height:200px;
+    display:flex;
+    align-items: center;
+}
+
+.prod_images img{
+    height: 190px;
+    /* margin: auto; */
+}
+
+.prod_images{
+    text-align: center;
+    margin-left: 200px;
+    display: flex;
+    justify-content: space-around;
+    width: 60%;
+}
+
+.section-header img{
+    height: 150px;
+    margin-top: 10px;
+    justify-content: left;
+    /* background-color: white; */
+}
+.section-header{
+   width: 200px;
+   padding: 0px 15px;
+   margin-left: 15px;
+}

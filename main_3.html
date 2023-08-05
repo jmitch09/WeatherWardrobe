@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather API Test</title>
+    <!-- <link type="text/css" href="weather_api_styles.css"> -->
+    <link rel="stylesheet" type="text/css" href="styles-3.css">
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"
+	integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+	crossorigin="anonymous"></script>
+</head>
+<body>
+
+    <h1 id="title">Weather Wardrobe</h1>
+
+    <form action="/submit" class="inputs" id="form">
+        <div class = "ind_input">
+            <div class = "label_div">
+                <label for="gender">Gender: </label>
+                <select name="gender" id="gender">
+                    <option value="female">Female</option>
+                    <option value="male">Male</option>
+                    <option value="non-binary">Non-Binary</option>
+                  </select>
+            </div>
+            <div class = "label_div">
+                <label for="location">Zip Code: </label>
+                <input type="text" id="location" name="location" placeholder="Ex. 02144">
+            </div>
+            <div class = "label_div">
+                <label for="formality">Formality: </label>
+                <select name="formality" id="formality">
+                    <option value="casual">Casual</option>
+                    <option value="athletic">Athletic</option>
+                    <option value="business-casual">Business Casual</option>
+                    <option value="formal">Formal</option>
+                </select>
+            </div>
+        </div>
+        <button id="submit" type="submit" value="Submit">Generate Wardrobe</button>
+    </form><hr>
+
+    <section class="days">
+         <div class="weather-tile" id="day-1">
+      
+            <img src="icons/cloud-bolt.svg" class="weather-icon" width="50"/>
+            <div class="date"></div>
+            <div class="day-of-week"></div>
+            <div class="high-temp"><span class ="temp"></span><span>&deg;</span></div>
+            <div class="low-temp"><span class ="temp"></span><span>&deg;</span></div>
+          
+         </div>
+         <div class="weather-tile" id="day-2">
+      
+            <img src="icons/cloud-bolt.svg" class="weather-icon"/>
+            <div class="date"></div>
+            <div class="day-of-week"></div>
+            <div class="high-temp"><span class = "temp"></span><span>&deg;</span></div>
+            <div class="low-temp"><span class = "temp"></span><span>&deg;</span></div>
+         </div>   
+         <div class="weather-tile" id="day-3">
+            <img src="icons/cloud-bolt.svg" class="weather-icon"/>
+            <div class="date"></div>
+            <div class="day-of-week"></div>
+            <div class="high-temp"><span class ="temp"></span><span>&deg;</span></div>
+            <div class="low-temp"><span class ="temp"></span><span>&deg;</span></div>
+         </div>
+         <div class="weather-tile" id="day-4">
+            <img src="icons/cloud-bolt.svg" class="weather-icon"/>
+            <div class="date"></div>
+            <div class="day-of-week"></div>
+            <div class="high-temp"><span class = "temp"></span><span>&deg;</span></div>
+            <div class="low-temp"><span class = "temp"></span><span>&deg;</span></div>
+         </div>
+         <div class="weather-tile" id="day-5">
+            <img src="icons/cloud-bolt.svg" class="weather-icon"/>
+            <div class="date"></div>
+            <div class="day-of-week"></div>
+            <div class="high-temp"><span class = "temp"></span><span>&deg;</span></div>
+            <div class="low-temp"><span class = "temp"></span><span>&deg;</span></div>
+         </div>
+    </section><hr>
+
+    <section class = "recs" id="headwear">
+        <div class = "section-header">
+            <h3>Head Wear</h3>
+            <img src="images/hat-white.svg" alt="headwear placeholder">
+        </div>
+        <div class = "prod_images">
+            <img class = "rec1">
+            <img class = "rec2">
+            <img class = "rec3">
+        </div>
+    </section><hr>
+    <section class = "recs" id="tops-layer">
+        <div class = "section-header">
+            <h3>Tops - Over Layer</h3>
+            <img src="images/jacket-white.svg" alt="tops layer placeholder">
+        </div>
+        <div class = "prod_images">
+            <img class = "rec1" src='https://bonobos-prod-s3.imgix.net/products/294954/original/COAT_CAR-COAT_BOT11100NG2488_1.jpg?1687056414=&auto=compress%2Cformat&fit=clip&cs=srgb&w=768&fm=pjpg&q=50'>
+            <img class = "rec2" src="https://bonobos-prod-s3.imgix.net/products/288465/original/SWEATER_V-NECK-SWEATER_BST00744NR2831_1.jpg?1687056414=&auto=compress%2Cformat&fit=clip&cs=srgb&w=768&fm=pjpg&q=50">
+            <img class = "rec3" src = "https://jiffyshirts1.imgix.net/2ec61f509401ff.jpg?ixlib=rb-0.3.4&auto=format&fit=fill&fill=solid&trim-color=FFFFFF&trim=color&trim-tol=8&w=307&h=480&q=80&dpr=2">
+        </div>
+    </section><hr>
+    <section class = "recs" id="tops-base">
+        <div class = "section-header">
+            <h3>Tops - Base</h3>
+            <img src="images/shirt-white.svg" alt="tops base placeholder">
+        </div>
+        <div class = "prod_images">
+            <img class = "rec1">
+            <img class = "rec2"> 
+            <img class = "rec3">
+        </div>
+    </section><hr>
+    <section class = "recs" id="bottoms">
+        <div class = "section-header">
+            <h3>Bottoms</h3>
+            <img src="images/pants-white.svg" alt="bottoms placeholder">
+        </div>
+        <div class = "prod_images">
+            <img class = "rec1">
+            <img class = "rec2">
+            <img class = "rec3">
+        </div>
+    </section><hr>
+    <section class = "recs" id="footwear">
+        <div class = "section-header">
+            <h3>Footwear</h3>
+            <img src="images/boot-white.svg" alt="footwear placeholder">
+        </div>
+        <div class = "prod_images">
+            <img class = "rec1">
+            <img class = "rec2">
+            <img class = "rec3">
+        </div>
+    </section>
+
+
+
+    <script>
+    $(document).ready(function(){
+
+        var zip_code = "02144";
+
+        parseWeather(zip_code);
+
+        async function getLatLong(zip_code) {
+            console.log("zip code: " + zip_code);
+
+            try {
+                const response = await fetch("https://maps.googleapis.com/maps/api/geocode/json?key=AIzaSyBtWXgRt5l2Z-OOTe01KpLNPdka3JhpIN4&"
+                + new URLSearchParams({
+                        address: zip_code,
+                    })
+                )
+                const json = await response.json();
+                return json
+            }
+            catch(error) {
+                alert("Invalid zip code! Please try again.");
+            };
+        };
+
+        async function getWeather(latitude, longitude) {
+            console.log("lat: " + latitude);
+            console.log("long: " + longitude);
+            const response = await fetch("https://api.open-meteo.com/v1/forecast?daily=weathercode,temperature_2m_max,temperature_2m_min&temperature_unit=fahrenheit&windspeed_unit=mph&precipitation_unit=inch&timezone=America%2FNew_York&"
+                + new URLSearchParams({
+                        latitude: latitude,
+                        longitude: longitude,
+                })
+            )
+            const json = await response.json();
+            console.log(json);
+
+            return json;
+        };
+
+        async function parseWeather(zip_code) {
+            let coordinates = await getLatLong(zip_code);
+            let lat = coordinates.results[0].geometry.location.lat;
+            let lon = coordinates.results[0].geometry.location.lng;
+
+            let temps = await getWeather(lat, lon);
+
+            day1 = createTile(temps, 0);
+            day2 = createTile(temps, 1);
+            day3 = createTile(temps, 2);
+            day4 = createTile(temps, 3);
+            day5 = createTile(temps, 4);
+
+            document.querySelector("#day-1 > .high-temp > .temp").innerHTML = temps.daily.temperature_2m_max[0];
+
+            pushTile(day1, "day-1");
+            pushTile(day2, "day-2");
+            pushTile(day3, "day-3");
+            pushTile(day4, "day-4");
+            pushTile(day5, "day-5");
+
+            return temps;
+        };
+
+        function createTile(temps, index) {
+            day_tile = {
+                date: temps.daily.time[index],
+                weather_code: temps.daily.weathercode[index],
+                temp_high: Math.round(temps.daily.temperature_2m_max[index]),
+                temp_low: Math.round(temps.daily.temperature_2m_min[index]),
+            }
+
+            console.log(
+                "Index: "+index+
+                "   Date: "+day_tile.date+
+                "   Weather_Code: "+day_tile.weather_code+
+                "   High: "+day_tile.temp_high+
+                "   Low: "+day_tile.temp_low
+            );
+
+            return day_tile;
+        }
+
+
+        function pushTile(tile_obj, day_num) {
+            /* Takes attributes of the day_tile object and pushes them to the
+             * html placeholders.
+             */
+            document.querySelector("#"+day_num+" > img").src = getIconUrl(tile_obj.weather_code);
+            document.querySelector("#"+day_num+" > .date").innerHTML = Day(tile_obj.date)[1];
+            document.querySelector("#"+day_num+" > .day-of-week").innerHTML = Day(tile_obj.date)[0];
+            document.querySelector("#"+day_num+" > .high-temp >.temp").innerHTML = tile_obj.temp_high;
+            document.querySelector("#"+day_num+" > .low-temp >.temp").innerHTML = tile_obj.temp_low;
+        }
+
+        function Day(date) {
+            /* Takes the date in the API format of "2023-07-21" and returns
+             * both the day of the week and rearranges date as "July 21".
+             */
+            const day = new Date(date);
+            let indexd = day.getDay();
+            let indexm = day.getMonth();
+            let day_num = day.getDate()+1;
+
+            let days = ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday', 'Sunday'];
+            let months = ["January","February","March","April","May","June","July",
+            "August","September","October","November","December"];
+            return [days[indexd],months[indexm]+" "+day_num]
+        };
+
+        const ICON_MAP = new Map()
+
+        addMapping([0, 1], "sun")
+        addMapping([2], "cloud-sun")
+        addMapping([3], "cloud")
+        addMapping([45, 48], "smog")
+        addMapping(
+            [51, 53, 55, 56, 57, 61, 63, 65, 66, 67, 80, 81, 82],
+            "cloud-showers-heavy"
+        )
+        addMapping([71, 73, 75, 77, 85, 86], "snowflake")
+        addMapping([95, 96, 99], "cloud-bolt")
+
+        function addMapping(values, icon) {
+            values.forEach(value => {
+                ICON_MAP.set(value, icon)
+            })
+        }
+
+        function getIconUrl(weather_code) {
+            return `icons/${ICON_MAP.get(weather_code)}.svg`
+            console.log(ICON_MAP.get(weather_code));
+        }
+
+        const weather_codes = {
+            0: "sunny",
+            1: "sunny",
+            2: "cloudy",
+            3: "cloudy",
+            45: "cloudy",
+            48: "cloudy",
+            51: "rainy",
+            53: "rainy",
+            55: "rainy",
+            56: "rainy",
+            57: "rainy",
+            61: "rainy",
+            63: "rainy",
+            65: "rainy",
+            66: "rainy",
+            67: "rainy",
+            80: "rainy",
+            81: "rainy",
+            82: "rainy",
+            71: "snow",
+            73: "snow",
+            75: "snow",
+            77: "snow",
+            85: "snow",
+            86: "snow",
+            95: "rainy",
+            96: "rainy",
+            99: "rainy"
+        }
+
+        $('form').submit(async function(event) {
+            event.preventDefault();
+
+            // Parse form into associative array
+            var values = {};
+            $.each($(this).serializeArray(), function(i, field) {
+                values[field.name] = field.value;
+            });
+
+            // Update weather based on provided zip code
+            zip_code = values['location'];
+            const temps = await parseWeather(zip_code);
+
+            // Get an outfit for each day
+            for (let i = 1; i <= 5; i++) {
+                const weather_code = temps.daily.weathercode[i];
+                const weather = weather_codes[weather_code];
+                const temp_hi = temps.daily.temperature_2m_max[i];
+                const temp_lo = temps.daily.temperature_2m_min[i];
+                const temp = Math.round((temp_lo + temp_hi) / 2.0);
+                values["weather"] = weather;
+                values["temp"] = temp;
+                $.post('/submit', values, function(response) {
+                    console.log("Day: " + parseInt(i));
+                    console.log(response["headwear"].item);
+                    console.log(response["tops base"].item);
+                    console.log(response["tops layer"].item);
+                    console.log(response["bottoms"].item);
+                    console.log(response["footwear"].item);
+                }, 'json');
+            }
+        });
+    });
+    </script>
+
+
+</body>
+</html>
