@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Weather API Test</title>
-    <link type="text/css" href="weather_api_styles.css">
+    <!-- <link type="text/css" href="weather_api_styles.css"> -->
+    <link rel="stylesheet" type="text/css" href="styles-3.css">
     <script src="https://code.jquery.com/jquery-3.1.1.min.js"
 	integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
 	crossorigin="anonymous"></script>
@@ -42,19 +43,22 @@
 
     <section class="days">
          <div class="weather-tile" id="day-1">
-            <img src="icons/cloud-bolt.svg" class="weather-icon"/>
+      
+            <img src="icons/cloud-bolt.svg" class="weather-icon" width="50"/>
             <div class="date"></div>
             <div class="day-of-week"></div>
             <div class="high-temp"><span class ="temp"></span><span>&deg;</span></div>
             <div class="low-temp"><span class ="temp"></span><span>&deg;</span></div>
+          
          </div>
          <div class="weather-tile" id="day-2">
+      
             <img src="icons/cloud-bolt.svg" class="weather-icon"/>
             <div class="date"></div>
             <div class="day-of-week"></div>
             <div class="high-temp"><span class = "temp"></span><span>&deg;</span></div>
             <div class="low-temp"><span class = "temp"></span><span>&deg;</span></div>
-         </div>
+         </div>   
          <div class="weather-tile" id="day-3">
             <img src="icons/cloud-bolt.svg" class="weather-icon"/>
             <div class="date"></div>
@@ -139,7 +143,8 @@
     <script>
     $(document).ready(function(){
 
-        let zip_code = "02144";
+        var zip_code = "02144";
+
         parseWeather(zip_code);
 
         async function getLatLong(zip_code) {
@@ -174,14 +179,13 @@
             return json;
         };
 
-        async function getWeatherForZipCode(zip_code) {
-            const coordinates = await getLatLong(zip_code);
-            const lat = coordinates.results[0].geometry.location.lat;
-            const lon = coordinates.results[0].geometry.location.lng;
-            return getWeather(lat, lon);
-        }
+        async function parseWeather(zip_code) {
+            let coordinates = await getLatLong(zip_code);
+            let lat = coordinates.results[0].geometry.location.lat;
+            let lon = coordinates.results[0].geometry.location.lng;
 
-        function displayWeather(temps) {
+            let temps = await getWeather(lat, lon);
+
             day1 = createTile(temps, 0);
             day2 = createTile(temps, 1);
             day3 = createTile(temps, 2);
@@ -195,12 +199,9 @@
             pushTile(day3, "day-3");
             pushTile(day4, "day-4");
             pushTile(day5, "day-5");
-        };
 
-        async function parseWeather(zip_code) {
-            const temps = await getWeatherForZipCode(zip_code);
-            displayWeather(temps);
-        }
+            return temps;
+        };
 
         function createTile(temps, index) {
             day_tile = {
@@ -269,6 +270,7 @@
 
         function getIconUrl(weather_code) {
             return `icons/${ICON_MAP.get(weather_code)}.svg`
+            console.log(ICON_MAP.get(weather_code));
         }
 
         const weather_codes = {
@@ -302,15 +304,6 @@
             99: "rainy"
         }
 
-        function getWeatherForDay(temps, day) {
-            const weather_code = temps.daily.weathercode[day];
-            const weather = weather_codes[weather_code];
-            const temp_hi = temps.daily.temperature_2m_max[day];
-            const temp_lo = temps.daily.temperature_2m_min[day];
-            const temp = Math.round((temp_lo + temp_hi) / 2.0);
-            return { "weather": weather, "temp": temp };
-        }
-
         $('form').submit(async function(event) {
             event.preventDefault();
 
@@ -322,14 +315,19 @@
 
             // Update weather based on provided zip code
             zip_code = values['location'];
-            const temps = await getWeatherForZipCode(zip_code);
-            displayWeather(temps);
+            const temps = await parseWeather(zip_code);
 
             // Get an outfit for each day
             for (let i = 1; i <= 5; i++) {
-                values = $.extend(values, getWeatherForDay(temps, i));
+                const weather_code = temps.daily.weathercode[i];
+                const weather = weather_codes[weather_code];
+                const temp_hi = temps.daily.temperature_2m_max[i];
+                const temp_lo = temps.daily.temperature_2m_min[i];
+                const temp = Math.round((temp_lo + temp_hi) / 2.0);
+                values["weather"] = weather;
+                values["temp"] = temp;
                 $.post('/submit', values, function(response) {
-                    console.log("Day: " + i);
+                    console.log("Day: " + parseInt(i));
                     console.log(response["headwear"].item);
                     console.log(response["tops base"].item);
                     console.log(response["tops layer"].item);
@@ -337,26 +335,6 @@
                     console.log(response["footwear"].item);
                 }, 'json');
             }
-        });
-
-        $(".weather-tile").on("click", async function() {
-            var values = {};
-            $.each($('form').serializeArray(), function(i, field) {
-                values[field.name] = field.value;
-            });
-
-            const temps = await getWeatherForZipCode(zip_code);
-            const day = $(this).attr("id").substring(4);
-            values = $.extend(values, getWeatherForDay(temps, day));
-
-            $.post('/submit', values, function(response) {
-                console.log("Day: " + day + " (Outfit Change)");
-                console.log(response["headwear"].item);
-                console.log(response["tops base"].item);
-                console.log(response["tops layer"].item);
-                console.log(response["bottoms"].item);
-                console.log(response["footwear"].item);
-            }, 'json');
         });
     });
     </script>
