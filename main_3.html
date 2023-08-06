@@ -314,6 +314,22 @@
             return { "weather": weather, "temp": temp };
         }
 
+        function displayOutfitRecommendation(response, rec_num) {
+            console.log("recommendation: " + rec_num);
+            console.log(response["headwear"].image);
+            console.log(response["tops base"].image);
+            console.log(response["tops layer"].image);
+            console.log(response["bottoms"].image);
+            console.log(response["footwear"].image);
+
+            // Update the src attribute of the appropriate img element
+            $("#headwear .prod_images .rec" + rec_num).attr("src", response["headwear"].image);
+            $("#tops-base .prod_images .rec" + rec_num).attr("src", response["tops base"].image);
+            $("#tops-layer .prod_images .rec" + rec_num).attr("src", response["tops layer"].image);
+            $("#bottoms .prod_images .rec" + rec_num).attr("src", response["bottoms"].image);
+            $("#footwear .prod_images .rec" + rec_num).attr("src", response["footwear"].image);
+        }
+
         $('form').submit(async function(event) {
             event.preventDefault();
 
@@ -328,27 +344,18 @@
             const temps = await getWeatherForZipCode(zip_code);
             displayWeather(temps);
 
-            // Get an outfit for each day
-            for (let i = 1; i <= 5; i++) {
-                values = $.extend(values, getWeatherForDay(temps, i));
+            // Remove 'clicked' class from all tiles
+            $(".weather-tile").removeClass("clicked");
+
+            // Add 'clicked' class to the currently clicked tile
+            day = 1;
+            $("#day-" + day).addClass("clicked");
+
+            values = $.extend(values, getWeatherForDay(temps, day));
+            console.log("Day: " + day);
+            for (let i = 1; i <= 3; i++) { 
                 $.post('/submit', values, function(response) {
-                    console.log("Day: " + i);
-                    console.log(response["headwear"].image);
-                    console.log(response["tops base"].image);
-                    console.log(response["tops layer"].image);
-                    console.log(response["bottoms"].image);
-                    console.log(response["footwear"].image);
-
-                    // Update the src attribute of the appropriate img element
-                    $("#headwear .prod_images .rec1").attr("src", response["headwear"].image);
-                    $("#tops-base .prod_images .rec1").attr("src", response["tops base"].image);
-                    $("#tops-layer .prod_images .rec1").attr("src", response["tops layer"].image);
-                    $("#bottoms .prod_images .rec1").attr("src", response["bottoms"].image);
-                    $("#footwear .prod_images .rec1").attr("src", response["footwear"].image);
-
-
-
-
+                    displayOutfitRecommendation(response, i);
                 }, 'json');
             }
         });
@@ -366,27 +373,16 @@
                 values[field.name] = field.value;
             });
                        
-
             const temps = await getWeatherForZipCode(zip_code);
             const day = $(this).attr("id").substring(4);
             values = $.extend(values, getWeatherForDay(temps, day));
 
-            $.post('/submit', values, function(response) {
-                console.log("Day: " + day + " (Outfit Change)");
-                console.log(response["headwear"].image);
-                console.log(response["tops base"].image);
-                console.log(response["tops layer"].image);
-                console.log(response["bottoms"].image);
-                console.log(response["footwear"].image);
-
-            $("#headwear .prod_images .rec1").attr("src", response["headwear"].image);
-            $("#tops-base .prod_images .rec1").attr("src", response["tops base"].image);
-            $("#tops-layer .prod_images .rec1").attr("src", response["tops layer"].image);
-            $("#bottoms .prod_images .rec1").attr("src", response["bottoms"].image);
-            $("#footwear .prod_images .rec1").attr("src", response["footwear"].image);
-
-  
-            }, 'json');
+            console.log("Day: " + day);
+            for (let i = 1; i <= 3; i++) { 
+                $.post('/submit', values, function(response) {
+                    displayOutfitRecommendation(response, i);
+                }, 'json');
+            }
         });
     });
     </script>
