@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Weather API Test</title>
+    <title>Weather Wardrobe</title>
     <!-- <link type="text/css" href="weather_api_styles.css"> -->
     <link rel="stylesheet" type="text/css" href="styles-3.css">
     <script src="https://code.jquery.com/jquery-3.1.1.min.js"
@@ -85,9 +85,9 @@
             <img src="images/hat-white.svg" alt="headwear placeholder">
         </div>
         <div class = "prod_images">
-            <img class = "rec1">
-            <img class = "rec2">
-            <img class = "rec3">
+            <img class = "rec1" src="">
+            <img class = "rec2" src="">
+            <img class = "rec3" src="">
         </div>
     </section><hr>
     <section class = "recs" id="tops-layer">
@@ -96,9 +96,9 @@
             <img src="images/jacket-white.svg" alt="tops layer placeholder">
         </div>
         <div class = "prod_images">
-            <img class = "rec1" src='https://bonobos-prod-s3.imgix.net/products/294954/original/COAT_CAR-COAT_BOT11100NG2488_1.jpg?1687056414=&auto=compress%2Cformat&fit=clip&cs=srgb&w=768&fm=pjpg&q=50'>
-            <img class = "rec2" src="https://bonobos-prod-s3.imgix.net/products/288465/original/SWEATER_V-NECK-SWEATER_BST00744NR2831_1.jpg?1687056414=&auto=compress%2Cformat&fit=clip&cs=srgb&w=768&fm=pjpg&q=50">
-            <img class = "rec3" src = "https://jiffyshirts1.imgix.net/2ec61f509401ff.jpg?ixlib=rb-0.3.4&auto=format&fit=fill&fill=solid&trim-color=FFFFFF&trim=color&trim-tol=8&w=307&h=480&q=80&dpr=2">
+            <img class = "rec1" src="">
+            <img class = "rec2" src="">
+            <img class = "rec3" src="">
         </div>
     </section><hr>
     <section class = "recs" id="tops-base">
@@ -107,9 +107,9 @@
             <img src="images/shirt-white.svg" alt="tops base placeholder">
         </div>
         <div class = "prod_images">
-            <img class = "rec1">
-            <img class = "rec2"> 
-            <img class = "rec3">
+            <img class = "rec1" src="">
+            <img class = "rec2" src=""> 
+            <img class = "rec3" src="">
         </div>
     </section><hr>
     <section class = "recs" id="bottoms">
@@ -118,9 +118,9 @@
             <img src="images/pants-white.svg" alt="bottoms placeholder">
         </div>
         <div class = "prod_images">
-            <img class = "rec1">
-            <img class = "rec2">
-            <img class = "rec3">
+            <img class = "rec1" src="">
+            <img class = "rec2" src="">
+            <img class = "rec3" src="">
         </div>
     </section><hr>
     <section class = "recs" id="footwear">
@@ -129,9 +129,9 @@
             <img src="images/boot-white.svg" alt="footwear placeholder">
         </div>
         <div class = "prod_images">
-            <img class = "rec1">
-            <img class = "rec2">
-            <img class = "rec3">
+            <img class = "rec1" src="">
+            <img class = "rec2" src="">
+            <img class = "rec3" src="">
         </div>
     </section>
 
@@ -159,6 +159,8 @@
                 alert("Invalid zip code! Please try again.");
             };
         };
+
+
 
         async function getWeather(latitude, longitude) {
             console.log("lat: " + latitude);
@@ -331,11 +333,19 @@
                 values = $.extend(values, getWeatherForDay(temps, i));
                 $.post('/submit', values, function(response) {
                     console.log("Day: " + i);
-                    console.log(response["headwear"].item);
-                    console.log(response["tops base"].item);
-                    console.log(response["tops layer"].item);
-                    console.log(response["bottoms"].item);
-                    console.log(response["footwear"].item);
+                    console.log(response["headwear"].image);
+                    console.log(response["tops base"].image);
+                    console.log(response["tops layer"].image);
+                    console.log(response["bottoms"].image);
+                    console.log(response["footwear"].image);
+
+                    // Update the src attribute of the appropriate img element
+                    $("#headwear .prod_images .rec1").attr("src", response["headwear"].image);
+                    $("#tops-base .prod_images .rec1").attr("src", response["tops base"].image);
+                    $("#tops-layer .prod_images .rec1").attr("src", response["tops layer"].image);
+                    $("#bottoms .prod_images .rec1").attr("src", response["bottoms"].image);
+                    $("#footwear .prod_images .rec1").attr("src", response["footwear"].image);
+
                 }, 'json');
             }
         });
@@ -352,11 +362,19 @@
 
             $.post('/submit', values, function(response) {
                 console.log("Day: " + day + " (Outfit Change)");
-                console.log(response["headwear"].item);
-                console.log(response["tops base"].item);
-                console.log(response["tops layer"].item);
-                console.log(response["bottoms"].item);
-                console.log(response["footwear"].item);
+                console.log(response["headwear"].image);
+                console.log(response["tops base"].image);
+                console.log(response["tops layer"].image);
+                console.log(response["bottoms"].image);
+                console.log(response["footwear"].image);
+
+                $("#headwear .prod_images .rec1").attr("src", response["headwear"].image);
+                $("#tops-base .prod_images .rec1").attr("src", response["tops base"].image);
+                $("#tops-layer .prod_images .rec1").attr("src", response["tops layer"].image);
+                $("#bottoms .prod_images .rec1").attr("src", response["bottoms"].image);
+                $("#footwear .prod_images .rec1").attr("src", response["footwear"].image);
+
+
             }, 'json');
         });
     });

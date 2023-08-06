@@ -29,41 +29,43 @@ function randomChoice(array) {
         return choice;
     }
 }
+//below is the original version
+        async function queryOutfit(collection, occasion, weather, temp, gender) {
+            /* This function queries the passed collection and forms an outfit that
+            * works for the given occasion, weather, and gender. If more than one
+            * choice for a specific clothing type is returned, a random selection is
+            * made. If no matching items exist for a specific clothing type, an empty
+            * entry is returned.
+            */
+            let tops_layer = [];
+            if (temp < 60 || weather == 'drizzly' || weather == 'rainy') {
+                tops_layer = await queryClothingType(
+                    collection, 'tops layer', occasion, weather, temp, gender
+                );
+            }
+            const headwear = await queryClothingType(
+                collection, 'headwear', occasion, weather, temp, gender
+            );
+            const tops_base = await queryClothingType(
+                collection, 'tops base', occasion, weather, temp, gender
+            );
+            const bottoms = await queryClothingType(
+                collection, 'bottoms', occasion, weather, temp, gender
+            );
+            const footwear = await queryClothingType(
+                collection, 'footwear', occasion, weather, temp, gender
+            );
 
-async function queryOutfit(collection, occasion, weather, temp, gender) {
-    /* This function queries the passed collection and forms an outfit that
-     * works for the given occasion, weather, and gender. If more than one
-     * choice for a specific clothing type is returned, a random selection is
-     * made. If no matching items exist for a specific clothing type, an empty
-     * entry is returned.
-     */
-    let tops_layer = [];
-    if (temp < 60 || weather == 'drizzly' || weather == 'rainy') {
-        tops_layer = await queryClothingType(
-            collection, 'tops layer', occasion, weather, temp, gender
-        );
-    }
-    const headwear = await queryClothingType(
-        collection, 'headwear', occasion, weather, temp, gender
-    );
-    const tops_base = await queryClothingType(
-        collection, 'tops base', occasion, weather, temp, gender
-    );
-    const bottoms = await queryClothingType(
-        collection, 'bottoms', occasion, weather, temp, gender
-    );
-    const footwear = await queryClothingType(
-        collection, 'footwear', occasion, weather, temp, gender
-    );
+            return {
+                'headwear': randomChoice(headwear),
+                'tops base': randomChoice(tops_base),
+                'tops layer': randomChoice(tops_layer),
+                'bottoms': randomChoice(bottoms),
+                'footwear': randomChoice(footwear)
+            };
+        }
+    
 
-    return {
-        'headwear': randomChoice(headwear),
-        'tops base': randomChoice(tops_base),
-        'tops layer': randomChoice(tops_layer),
-        'bottoms': randomChoice(bottoms),
-        'footwear': randomChoice(footwear)
-    };
-}
 
 module.exports = {
     getOutfit: async function (occasion, weather, temp, gender, callback) {
@@ -96,6 +98,7 @@ module.exports = {
 
 
             callback(outfit);
+          
 
         } finally {
             // Ensures that the client will close when you finish/error
