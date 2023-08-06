@@ -88,7 +88,12 @@ module.exports = {
             const collection = database.collection('outfits');
 
             // Query an outfit and log it to the console
-            let outfit = await queryOutfit(collection, 'casual', 'sunny', 75, 'female');
+            //the below is hard-coded
+            //let outfit = await queryOutfit(collection, 'casual', 'sunny', 75, 'female');
+
+            //this is the revised code
+            let outfit = await queryOutfit(collection, occasion, weather, temp, gender);
+
 
             callback(outfit);
 
