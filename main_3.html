@@ -33,7 +33,7 @@
                 <select name="formality" id="formality">
                     <option value="casual">Casual</option>
                     <option value="athletic">Athletic</option>
-                    <option value="business-casual">Business Casual</option>
+                    <option value="business casual">Business Casual</option>
                     <option value="formal">Formal</option>
                 </select>
             </div>
@@ -322,12 +322,22 @@
             console.log(response["bottoms"].image);
             console.log(response["footwear"].image);
 
-            // Update the src attribute of the appropriate img element
+            // Update the src attribute of the appropriate img element this is the prior version 8/6/23
             $("#headwear .prod_images .rec" + rec_num).attr("src", response["headwear"].image);
             $("#tops-base .prod_images .rec" + rec_num).attr("src", response["tops base"].image);
             $("#tops-layer .prod_images .rec" + rec_num).attr("src", response["tops layer"].image);
             $("#bottoms .prod_images .rec" + rec_num).attr("src", response["bottoms"].image);
             $("#footwear .prod_images .rec" + rec_num).attr("src", response["footwear"].image);
+
+	    //this version forces the re-size of the image
+	    $("#headwear .prod_images .rec" + rec_num).attr("src", response["headwear"].image).attr("width", "150").attr("height", "160");
+            $("#tops-base .prod_images .rec" + rec_num).attr("src", response["tops base"].image).attr("width", "150").attr("height", "160");
+            $("#tops-layer .prod_images .rec" + rec_num).attr("src", response["tops layer"].image).attr("width", "150").attr("height", "160");
+            $("#bottoms .prod_images .rec" + rec_num).attr("src", response["bottoms"].image).attr("width", "150").attr("height", "160");
+            $("#footwear .prod_images .rec" + rec_num).attr("src", response["footwear"].image).attr("width", "150").attr("height", "160");
+
+
+		
         }
 
         $('form').submit(async function(event) {
